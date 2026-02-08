@@ -1,1 +1,611 @@
-# istighfar1
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع الاستغفار - رحمهم الله</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px);
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .bismillah {
+            font-family: 'Amiri', serif;
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 215, 0, 0.5); }
+            50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.8); }
+        }
+        
+        h1 {
+            font-family: 'Amiri', serif;
+            font-size: 2.8em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+        
+        .deceased-names {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .deceased-names h2 {
+            font-family: 'Amiri', serif;
+            color: #ffd700;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .name {
+            font-size: 1.4em;
+            color: #ffffff;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-right: 4px solid #ffd700;
+        }
+        
+        .istighfar-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .istighfar-text {
+            font-family: 'Amiri', serif;
+            font-size: 2.2em;
+            color: #ffd700;
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            line-height: 1.8;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .counter-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .counter-display {
+            font-size: 4em;
+            color: #ffd700;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.2s ease;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #1e3c72;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            font-family: 'Tajawal', sans-serif;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+        }
+        
+        .btn:active {
+            transform: scale(0.95);
+        }
+        
+        .btn-reset {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .duas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .dua-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .dua-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .dua-card h3 {
+            font-family: 'Amiri', serif;
+            color: #ffd700;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .dua-card p {
+            font-family: 'Amiri', serif;
+            color: #ffffff;
+            font-size: 1.3em;
+            line-height: 2;
+            text-align: center;
+        }
+        
+        .quran-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .quran-section h2 {
+            font-family: 'Amiri', serif;
+            color: #ffd700;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .ayah {
+            font-family: 'Amiri', serif;
+            font-size: 1.8em;
+            color: #ffffff;
+            text-align: center;
+            line-height: 2.2;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .tasbih-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .tasbih-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .tasbih-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .tasbih-item h4 {
+            font-family: 'Amiri', serif;
+            color: #ffd700;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+        
+        .tasbih-count {
+            font-size: 2em;
+            color: #ffffff;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .info-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .info-box p {
+            color: #ffffff;
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-top: 40px;
+            color: #ffffff;
+        }
+        
+        footer p {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .developer {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-top: 15px;
+        }
+        
+        .animation-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .tip {
+            color: #e0e0e0;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .bismillah { font-size: 1.8em; }
+            .istighfar-text { font-size: 1.6em; }
+            .counter-display { font-size: 3em; }
+            .btn { padding: 15px 30px; font-size: 1.2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <header class="animation-fade-in">
+            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <h1>🕌 موقع الاستغفار والدعاء 🕌</h1>
+            <p class="subtitle">اللهم اغفر لهم وارحمهم واجعل الجنة مثواهم</p>
+            
+            <div class="deceased-names">
+                <h2>نستغفر الله العظيم ونترحم على:</h2>
+                <div class="name">📿 المرحوم فايز محمد هليل الدروبي</div>
+                <div class="name">📿 المرحومة هدية محمد هليل الدروبي</div>
+                <div class="name">📿 جميع أرواح المسلمين والمسلمات</div>
+            </div>
+        </header>
+        
+        <div class="istighfar-section animation-fade-in">
+            <h2 style="color: #ffd700; text-align: center; font-family: 'Amiri', serif; font-size: 2.2em; margin-bottom: 20px;">
+                عداد الاستغفار
+            </h2>
+            
+            <div class="istighfar-text pulse">
+                أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ
+            </div>
+            
+            <div class="counter-container">
+                <div class="counter-display" id="counter">0</div>
+                <div>
+                    <button class="btn" onclick="incrementCounter()">استغفر الله ✨</button>
+                    <button class="btn btn-reset" onclick="resetCounter()">إعادة تعيين 🔄</button>
+                </div>
+                <p class="tip">💡 نصيحة: اضغط على مفتاح المسافة للاستغفار السريع</p>
+            </div>
+        </div>
+        
+        <div class="quran-section animation-fade-in">
+            <h2>من القرآن الكريم</h2>
+            <div class="ayah">
+                ﴿ وَالَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَآمَنُوا بِمَا نُزِّلَ عَلَىٰ مُحَمَّدٍ وَهُوَ الْحَقُّ مِن رَّبِّهِمْ ۙ كَفَّرَ عَنْهُمْ سَيِّئَاتِهِمْ وَأَصْلَحَ بَالَهُمْ ﴾
+                <br><small style="color: #ffd700;">[محمد: 2]</small>
+            </div>
+            <div class="ayah">
+                ﴿ وَبَشِّرِ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ أَنَّ لَهُمْ جَنَّاتٍ تَجْرِي مِن تَحْتِهَا الْأَنْهَارُ ﴾
+                <br><small style="color: #ffd700;">[البقرة: 25]</small>
+            </div>
+        </div>
+        
+        <div class="istighfar-section animation-fade-in">
+            <h2 style="color: #ffd700; text-align: center; font-family: 'Amiri', serif; font-size: 2.2em; margin-bottom: 30px;">
+                أدعية مأثورة للميت
+            </h2>
+            
+            <div class="duas-grid">
+                <div class="dua-card">
+                    <h3>🤲 دعاء الرحمة</h3>
+                    <p>اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ وَأَكْرِمْ نُزُلَهُ وَوَسِّعْ مُدْخَلَهُ</p>
+                </div>
+                
+                <div class="dua-card">
+                    <h3>🌟 دعاء المغفرة</h3>
+                    <p>اللَّهُمَّ اغْفِرْ لَهُ وَارْفَعْ دَرَجَتَهُ فِي الْمَهْدِيِّينَ وَاخْلُفْهُ فِي عَقِبِهِ فِي الْغَابِرِينَ</p>
+                </div>
+                
+                <div class="dua-card">
+                    <h3>💫 دعاء النور</h3>
+                    <p>اللَّهُمَّ نَوِّرْ لَهُ فِي قَبْرِهِ وَنَوِّرْ لَهُ عَنْ يَمِينِهِ وَنَوِّرْ لَهُ عَنْ شِمَالِهِ</p>
+                </div>
+                
+                <div class="dua-card">
+                    <h3>🕊️ دعاء الجنة</h3>
+                    <p>اللَّهُمَّ أَدْخِلْهُ الْجَنَّةَ وَأَعِذْهُ مِنْ عَذَابِ الْقَبْرِ وَعَذَابِ النَّارِ</p>
+                </div>
+                
+                <div class="dua-card">
+                    <h3>✨ دعاء الرضوان</h3>
+                    <p>اللَّهُمَّ اجْعَلْهُ فِي بَطْنِ الْجَنَّةِ وَاغْفِرْ لَهُ وَارْحَمْهُ إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ</p>
+                </div>
+                
+                <div class="dua-card">
+                    <h3>🌙 دعاء الطمأنينة</h3>
+                    <p>اللَّهُمَّ اجْعَلْ قَبْرَهُ روْضَةً مِنْ رِيَاضِ الْجَنَّةِ وَلَا تَجْعَلْهُ حُفْرَةً مِنْ حُفَرِ النَّارِ</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="istighfar-section animation-fade-in">
+            <h2 style="color: #ffd700; text-align: center; font-family: 'Amiri', serif; font-size: 2.2em; margin-bottom: 30px;">
+                التسبيح والذكر
+            </h2>
+            
+            <div class="tasbih-grid">
+                <div class="tasbih-item">
+                    <h4>سُبْحَانَ اللَّهِ</h4>
+                    <div class="tasbih-count" id="subhan">0</div>
+                    <button class="btn" style="margin-top: 15px; padding: 10px 25px; font-size: 1em;" onclick="incrementTasbih('subhan')">+</button>
+                </div>
+                
+                <div class="tasbih-item">
+                    <h4>الْحَمْدُ لِلَّهِ</h4>
+                    <div class="tasbih-count" id="hamd">0</div>
+                    <button class="btn" style="margin-top: 15px; padding: 10px 25px; font-size: 1em;" onclick="incrementTasbih('hamd')">+</button>
+                </div>
+                
+                <div class="tasbih-item">
+                    <h4>اللَّهُ أَكْبَرُ</h4>
+                    <div class="tasbih-count" id="takbir">0</div>
+                    <button class="btn" style="margin-top: 15px; padding: 10px 25px; font-size: 1em;" onclick="incrementTasbih('takbir')">+</button>
+                </div>
+                
+                <div class="tasbih-item">
+                    <h4>لَا إِلَٰهَ إِلَّا اللَّهُ</h4>
+                    <div class="tasbih-count" id="tahlil">0</div>
+                    <button class="btn" style="margin-top: 15px; padding: 10px 25px; font-size: 1em;" onclick="incrementTasbih('tahlil')">+</button>
+                </div>
+            </div>
+            
+            <button class="btn btn-reset" style="margin-top: 20px;" onclick="resetAllTasbih()">إعادة تعيين جميع العدادات 🔄</button>
+        </div>
+        
+        <div class="info-box animation-fade-in">
+            <p>
+                <strong style="color: #ffd700;">💎 فضل الاستغفار:</strong>
+                <br>
+                قال رسول الله ﷺ: "مَنْ لَزِمَ الِاسْتِغْفَارَ جَعَلَ اللَّهُ لَهُ مِنْ كُلِّ هَمٍّ فَرَجًا وَمِنْ كُلِّ ضِيقٍ مَخْرَجًا وَرَزَقَهُ مِنْ حَيْثُ لَا يَحْتَسِبُ"
+            </p>
+        </div>
+        
+        <div class="info-box animation-fade-in">
+            <p>
+                <strong style="color: #ffd700;">🌟 صدقة جارية:</strong>
+                <br>
+                كل استغفارة ودعوة في هذا الموقع هي صدقة جارية عن المتوفين، نسأل الله أن يتقبلها ويجعلها في ميزان حسناتهم
+            </p>
+        </div>
+        
+        <footer class="animation-fade-in">
+            <p style="font-family: 'Amiri', serif; font-size: 1.4em; color: #ffd700;">
+                اللَّهُمَّ اغْفِرْ لَهُمْ وَارْحَمْهُمْ وَاجْعَلْ مَثْوَاهُمْ الْجَنَّةَ
+            </p>
+            <p style="margin-top: 20px;">
+                جميع الحقوق محفوظة © 2024
+            </p>
+            <p class="developer">
+                تم تصميم وبرمجة الموقع بواسطة: أنس مشعل الدروبي 💻
+            </p>
+            <p style="margin-top: 15px; color: #e0e0e0;">
+                جعله الله في ميزان حسناته وحسنات والديه
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Create stars animation
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        createStars();
+        
+        // Counter functionality
+        let count = localStorage.getItem('istighfarCount') ? parseInt(localStorage.getItem('istighfarCount')) : 0;
+        document.getElementById('counter').textContent = count;
+        
+        function incrementCounter() {
+            count++;
+            document.getElementById('counter').textContent = count;
+            localStorage.setItem('istighfarCount', count);
+            
+            // Animation effect
+            const counterDisplay = document.getElementById('counter');
+            counterDisplay.style.transform = 'scale(1.2)';
+            counterDisplay.style.color = '#ffed4e';
+            setTimeout(() => {
+                counterDisplay.style.transform = 'scale(1)';
+                counterDisplay.style.color = '#ffd700';
+            }, 200);
+        }
+        
+        function resetCounter() {
+            if (confirm('هل أنت متأكد من إعادة تعيين العداد؟')) {
+                count = 0;
+                document.getElementById('counter').textContent = count;
+                localStorage.setItem('istighfarCount', count);
+            }
+        }
+        
+        // Tasbih counters
+        let tasbihCounts = {
+            subhan: localStorage.getItem('subhan') ? parseInt(localStorage.getItem('subhan')) : 0,
+            hamd: localStorage.getItem('hamd') ? parseInt(localStorage.getItem('hamd')) : 0,
+            takbir: localStorage.getItem('takbir') ? parseInt(localStorage.getItem('takbir')) : 0,
+            tahlil: localStorage.getItem('tahlil') ? parseInt(localStorage.getItem('tahlil')) : 0
+        };
+        
+        // Initialize tasbih displays
+        Object.keys(tasbihCounts).forEach(key => {
+            document.getElementById(key).textContent = tasbihCounts[key];
+        });
+        
+        function incrementTasbih(type) {
+            tasbihCounts[type]++;
+            document.getElementById(type).textContent = tasbihCounts[type];
+            localStorage.setItem(type, tasbihCounts[type]);
+            
+            // Animation effect
+            const element = document.getElementById(type);
+            element.style.transform = 'scale(1.3)';
+            element.style.color = '#ffed4e';
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+                element.style.color = '#ffffff';
+            }, 200);
+        }
+        
+        function resetAllTasbih() {
+            if (confirm('هل أنت متأكد من إعادة تعيين جميع عدادات التسبيح؟')) {
+                Object.keys(tasbihCounts).forEach(key => {
+                    tasbihCounts[key] = 0;
+                    document.getElementById(key).textContent = 0;
+                    localStorage.setItem(key, 0);
+                });
+            }
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                incrementCounter();
+            }
+        });
+    </script>
+</body>
+</html>
